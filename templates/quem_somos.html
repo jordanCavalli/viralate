@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .historia-box {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-left: 5px solid var(--azul-medio);
+    }
+    .numeros-card {
+        background-color: rgba(162, 181, 72, 0.1);
+        border-radius: 12px;
+        border: 1px solid #e2ddc7;
+        transition: transform 0.3s ease;
+    }
+    .numeros-card:hover {
+        transform: translateY(-5px);
+    }
+    .destaque-numero {
+        color: var(--verde-oliva);
+        font-size: 2.5rem;
+        font-weight: 900;
+    }
+    .alerta-box {
+        background-color: rgba(227, 36, 43, 0.05);
+        border-left: 5px solid var(--vermelho);
+        border-radius: 12px;
+    }
+</style>
+
+<div class="container py-5 mt-4">
+    
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-oliva);">Quem Somos</h1>
+        <p class="lead text-muted mt-3 mx-auto" style="max-width: 800px;">
+            A Associação Viralate iniciou os seus trabalhos em 2014 e foi formalizada em maio de 2015. 
+            Atuamos ativamente em Feliz e Bom Princípio, focando no resgate, reabilitação e controle populacional de animais em situação de rua ou de famílias de baixa renda.
+        </p>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="historia-box p-4 p-md-5 mb-4">
+                <h3 class="fw-bold mb-3 text-dark">Nossa Realidade e Limitações</h3>
+                <p class="fs-5 text-muted mb-4">
+                    Muitas pessoas acreditam que a Viralate possui uma grande estrutura. A realidade é bem diferente: <strong>nós não temos abrigo, canil ou gatil físico.</strong>
+                </p>
+                <p class="fs-5 text-muted mb-4">
+                    Atualmente, somos poucos voluntários ativos. Somos cidadãs comuns, inseridas no mercado de trabalho, que doam o seu tempo livre — abrindo mão de lazer e descanso — para ajudar os animais. Como existe a Associação, muitas vezes a população nos cobra a resolução de todos os casos de rua, mas é totalmente inviável absorvermos toda a demanda sozinhos.
+                </p>
+                <p class="fs-5 text-muted mb-0">
+                    Os animais que resgatamos ficam em <strong>Lares Temporários solidários</strong> (casas de voluntárias) ou em <strong>hospedagens pagas</strong>, gerando um custo diário para mantê-los seguros e alimentados até encontrarem uma família.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5 g-4">
+        <div class="col-lg-10 text-center mb-3">
+            <h3 class="fw-bold" style="color: var(--verde-oliva);">A Viralate em Números</h3>
+        </div>
+
+        <div class="col-md-5">
+            <div class="numeros-card p-4 text-center h-100">
+                <div class="destaque-numero">50+</div>
+                <p class="fw-bold text-dark mb-0">Vidas sob nossa responsabilidade simultaneamente</p>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="numeros-card p-4 text-center h-100">
+                <div class="destaque-numero">R$ 8 mil</div>
+                <p class="fw-bold text-dark mb-0">Custo mensal estimado para manter os nossos resgates</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="alerta-box p-4 p-md-5 mb-4">
+                <h3 class="fw-bold mb-3" style="color: var(--vermelho);">O gargalo das adoções</h3>
+                <p class="fs-5 text-dark mb-3">
+                    A Associação sobrevive exclusivamente de doações, e o número de pessoas ajudando financeiramente tem diminuído muito, enquanto os casos de abandono e negligência continuam crescendo. 
+                </p>
+                <p class="fs-5 text-dark mb-0">
+                    Nossa maior dificuldade hoje é a <strong>adoção de cães de porte médio e grande</strong>. Eles são resgatados, tratados, castrados e vacinados, mas acabam esperando meses ou até anos em hospedagens pagas pela ONG. Eles têm segurança, comida e saúde, mas falta o mais importante: <strong>uma família para lhes dar atenção e carinho exclusivo</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h4 class="fw-bold text-dark mb-4">"Se a dor dói em ti, essa dor também dói no animal."</h4>
+            <p class="fs-5 text-muted mb-4">
+                Não seja conivente com maus-tratos. Trabalhamos em parceria com a comunidade, veterinários e, quando a conversa não resolve os casos de abuso, com a Polícia Civil e processos judiciais. 
+            </p>
+            <p class="fs-5 text-dark fw-bold">
+                Mas não podemos agir sozinhos. Precisamos de lares temporários, de voluntários e de apoio financeiro para garantir a continuidade deste trabalho.
+            </p>
+            
+            <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                <a href="{% url 'doar' %}" class="btn px-4 py-3 fw-bold text-uppercase" style="background-color: var(--azul-medio); color: white; border-radius: 8px;">
+                    Ajudar Financeiramente
+                </a>
+                <a href="{% url 'lares_temporarios' %}" class="btn px-4 py-3 fw-bold text-uppercase" style="background-color: var(--verde-oliva); color: white; border-radius: 8px;">
+                    Ser Lar Temporário
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

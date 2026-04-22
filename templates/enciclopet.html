@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* 1. SEUS ESTILOS ATUAIS (MANTIDOS) */
+    .animal-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+        border: 1px solid #eee;
+        height: 100%;
+        overflow: hidden;
+    }
+    .animal-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-color: var(--verde-oliva);
+    }
+    .animal-img {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    .badge-status-ADOTAR { background-color: var(--verde-oliva); color: white; }
+    .badge-status-PERDIDO { background-color: #dc3545; color: white; }
+    .badge-status-ENCONTRADO { background-color: var(--azul-medio); color: white; }
+    
+    .search-box {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        border: 1px solid #e9ecef;
+    }
+
+    /* 2. REGRAS NOVAS PARA A FAIXA DE ADOÇÃO E BOTÃO VERDE */
+    
+    /* Estilo do botão verde sólido */
+    .btn-viralate-fill {
+        background-color: var(--verde-oliva);
+        color: white !important;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-viralate-fill:hover {
+        background-color: #8fa33a; /* Verde um pouco mais escuro */
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Ajuste para a borda lateral da faixa usar sua cor verde */
+    .border-success {
+        border-color: var(--verde-oliva) !important;
+    }
+
+    /* 3. AJUSTE PARA O CELULAR */
+    @media (max-width: 768px) {
+        .btn-viralate-fill {
+            width: 100%; /* No celular o botão fica largo para facilitar o toque */
+            text-align: center;
+        }
+        
+        .fs-5 {
+            font-size: 1rem !important; /* Diminui um pouco o texto no celular */
+        }
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="row"></div>
+    
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-oliva);">Enciclopet</h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">
+            A nossa galeria oficial. Encontre o seu novo melhor amigo ou ajude a identificar animais perdidos e encontrados na região.
+        </p>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-12">
+            <form method="GET" class="search-box">
+                <div class="row g-3">
+                    
+                    <div class="col-md-3">
+                        <input type="text" name="busca" class="form-control" placeholder="Buscar por nome..." value="{{ request.GET.busca|default_if_none:'' }}">
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <select name="status" class="form-select">
+                            <option value="">Status</option>
+                            {% for valor, nome in status_choices %}
+                                <option value="{{ valor }}" {% if request.GET.status == valor %}selected{% endif %}>{{ nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <select name="especie" class="form-select">
+                            <option value="">Espécie</option>
+                            {% for valor, nome in especies %}
+                                <option value="{{ valor }}" {% if request.GET.especie == valor %}selected{% endif %}>{{ nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <select name="sexo" class="form-select">
+                            <option value="">Sexo</option>
+                            {% for valor, nome in sexos %}
+                                <option value="{{ valor }}" {% if request.GET.sexo == valor %}selected{% endif %}>{{ nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <select name="tamanho" class="form-select">
+                            <option value="">Porte (Cães)</option>
+                            {% for valor, nome in tamanhos %}
+                                <option value="{{ valor }}" {% if request.GET.tamanho == valor %}selected{% endif %}>{{ nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-1">
+                        <button type="submit" class="btn w-100 fw-bold" style="background-color: var(--verde-oliva); color: white;" title="Filtrar">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        {% for animal in animais %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="animal-card">
+                    
+                    {% if animal.foto %}
+                        <img src="{{ animal.foto.url }}" class="animal-img" alt="{{ animal.nome }}">
+                    {% else %}
+                        <div class="animal-img d-flex align-items-center justify-content-center bg-light">
+                            <i class="bi bi-camera text-muted fs-1"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="fw-bold text-dark mb-0">{{ animal.nome }}</h5>
+                            <span class="badge badge-status-{{ animal.status }} px-2 py-1">{{ animal.get_status_display }}</span>
+                        </div>
+                        
+                        <p class="text-muted small mb-4">
+                            <strong>{{ animal.get_especie_display }}</strong> • {{ animal.get_sexo_display }}<br>
+                            <i class="bi bi-clock me-1"></i> {{ animal.idade }}
+                            {% if animal.tamanho %}
+                                <br><i class="bi bi-arrows-expand me-1"></i> Porte {{ animal.get_tamanho_display }}
+                            {% endif %}
+                        </p>
+                        
+                        <a href="{% url 'detalhes_animal' animal.id %}" class="btn btn-outline-secondary btn-sm w-100 fw-bold" style="border-radius: 8px;">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            
+{% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-search text-muted mb-3 d-block" style="font-size: 3rem; opacity: 0.3;"></i>
+                <h4 class="text-dark fw-bold">Nenhum animal encontrado</h4>
+                <p class="text-muted">Não encontramos animais com esses filtros no momento.</p>
+                <a href="{% url 'enciclopet' %}" class="btn btn-outline-secondary mt-2">Limpar Filtros</a>
+            </div>
+        {% endfor %}
+
+<div class="container mb-5 mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-4 p-md-5 border-start border-4 border-success rounded-4 bg-white shadow-sm d-flex flex-column flex-md-row align-items-center gap-4">
+                
+                <div class="text-center text-md-start flex-grow-1">
+                    <h3 class="fw-bold mb-2" style="color: var(--verde-oliva);">
+                        <i class="bi bi-heart-pulse-fill me-2"></i>Adoção Consciente
+                    </h3>
+                    <p class="text-muted mb-0 fs-5">
+                        Adotar é um ato de amor, mas também de responsabilidade. Um animal pode viver mais de 15 anos e precisará de você em todas as fases. 
+                        <strong>Está pronto para mudar um destino?</strong>
+                    </p>
+                </div>
+                
+                <div class="d-flex flex-column gap-3 flex-shrink-0" style="min-width: 220px;">
+                    
+                    <a href="{% url 'contato' %}" class="btn btn-viralate-fill px-4 py-3 shadow-sm w-100 text-center">
+                        QUERO ADOTAR
+                    </a>
+                    
+                    <a href="{% url 'adotar' %}" class="btn btn-outline-secondary px-4 py-3 fw-bold shadow-sm w-100 text-center">
+                        SABER MAIS
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

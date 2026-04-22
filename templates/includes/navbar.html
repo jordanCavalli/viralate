@@ -1,0 +1,34 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark navbar-viralate fixed-top shadow-sm">
+    <div class="container"> 
+        
+        <a class="navbar-brand me-4" href="{% url 'home' %}">
+            <img src="{% static 'img/logo.png' %}" alt="Viralate" height="70">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-0 me-auto text-uppercase fw-bold align-items-center gap-4" style="font-size: 0.8rem; letter-spacing: 0.5px;">
+                
+                <li class="nav-item"><a class="nav-link" href="{% url 'enciclopet' %}">Enciclopet</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'quem_somos' %}">Quem Somos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'adotar' %}">Adotar</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'lares_temporarios' %}">Lares Temporários</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'voluntariar' %}">Voluntariar</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contato' %}">Contato</a></li> 
+                
+                <li class="nav-item ms-lg-4">
+                    <a class="nav-link px-4 py-2 btn-doar-nav" href="{% url 'doar' %}">
+                        Doar
+                    </a>
+                </li>
+                
+                <li class="nav-item"><a class="nav-link" href="{% url 'parceiros' %}">Parceiros</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

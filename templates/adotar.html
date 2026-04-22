@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .adotar-text-block {
+        background-color: white; 
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .adotar-text-block p, .adotar-text-block li {
+        color: #444; 
+    }
+    .adotar-text-block ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 30px;
+    }
+    .adotar-text-block li {
+        margin-bottom: 12px;
+        font-size: 1.15rem;
+    }
+    .adotar-text-block li i {
+        color: var(--verde-oliva);
+        margin-right: 10px;
+    }
+
+    /* Estilos do Mosaico (Alinhamento Automático Flexbox) */
+    .mosaic-container {
+        position: relative;
+        height: 420px; 
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        gap: 20px; /* Espaço fixo e perfeito entre as fotos */
+        background-color: var(--verde-oliva); 
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 20px;
+    }
+    .mosaic-image-wrapper {
+        position: relative; 
+        width: 220px;
+        height: 320px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        border-radius: 8px; 
+        transition: transform 0.3s ease; 
+        overflow: hidden; /* Evita que a foto ou a tarja vazem pelas bordas */
+    }
+
+    /* Efeito "Sobe e Desce" intercalado */
+    .mosaic-image-wrapper:nth-child(odd) {
+        transform: translateY(-20px); /* Ímpares sobem */
+    }
+    .mosaic-image-wrapper:nth-child(even) {
+        transform: translateY(20px); /* Pares descem */
+    }
+
+    /* Efeito de zoom ao passar o mouse sem perder o sobe e desce */
+    .mosaic-image-wrapper:nth-child(odd):hover {
+        transform: translateY(-20px) scale(1.05);
+        z-index: 10;
+    }
+    .mosaic-image-wrapper:nth-child(even):hover {
+        transform: translateY(20px) scale(1.05);
+        z-index: 10;
+    }
+
+    .mosaic-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Estilo para a tarja com o nome do animal */
+    .mosaic-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(162, 181, 72, 0.9); /* Verde oliva levemente transparente */
+        color: white;
+        text-align: center;
+        padding: 8px 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        z-index: 5;
+    }
+
+    /* Efeitos para os botões sociais */
+    .btn-social {
+        transition: 0.3s;
+        border-radius: 8px;
+    }
+    .btn-social:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="row justify-content-center mb-5 d-none d-md-flex">
+    <div class="col-lg-8">
+        <div class="mosaic-container">
+            
+            {% for animal in animais_destaque %}
+            <a href="{% url 'detalhes_animal' animal.id %}" class="mosaic-image-wrapper d-block text-decoration-none">
+                
+                {% if animal.foto %}
+                    <img src="{{ animal.foto.url }}" alt="{{ animal.nome }}">
+                {% else %}
+                    <div class="w-100 h-100 bg-secondary d-flex justify-content-center align-items-center">
+                        <i class="bi bi-camera text-white fs-1"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="mosaic-name">{{ animal.nome }}</div>
+                
+            </a> {% endfor %}
+            
+        </div>
+    </div>
+</div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="adotar-text-block text-center">
+                <h3 class="fw-bold mb-4" style="color: var(--verde-oliva);">A história deles pode recomeçar do jeito certo.</h3>
+                
+                <p class="fs-5 mb-4">
+                    A jornada de um animal resgatado muitas vezes envolve dor e abandono, mas o futuro pode ser diferente. 
+                    Com responsabilidade, cuidado e amor de verdade, podemos transformar essas vidas.
+                </p>
+                
+                <p class="fs-5 fw-bold text-start mb-3">Nossos cães e gatos merecem:</p>
+                <ul class="text-start">
+                    <li><i class="bi bi-house-heart-fill"></i> Um lar seguro e protegido</li>
+                    <li><i class="bi bi-cup-hot-fill"></i> Alimentação adequada e cuidados veterinários</li>
+                    <li><i class="bi bi-emoji-smile-fill"></i> Muito carinho e atenção diária</li>
+                    <li><i class="bi bi-infinity"></i> Compromisso para a vida toda</li>
+                </ul>
+                
+                <p class="fs-5 mb-0" style="font-style: italic;">
+                    "Adotar não é quebrar um galho. É assumir uma vida. É não abandonar quando ficar difícil."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="p-4 rounded-4" style="background-color: rgba(162, 181, 72, 0.1); border-left: 5px solid var(--verde-oliva);">
+                <h5 class="fw-bold mb-3" style="color: var(--verde-oliva);"><i class="bi bi-clipboard-check-fill me-2"></i>Antes de dar o próximo passo</h5>
+                <p class="mb-0 text-dark">
+                    Para garantir que nossos resgatados encontrem a família ideal, realizamos uma entrevista baseada em nosso questionário de adoção. 
+                    Avaliamos a segurança do ambiente (pátios fechados, telas para gatos), a rotina da família e a ciência dos custos com alimentação e cuidados veterinários.
+                </p>
+            </div>
+        </div>
+    </div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="p-5 text-center rounded-4 shadow-sm" style="background-color: white; border-top: 5px solid var(--azul-medio);">
+            <h3 class="fw-bold mb-3" style="color: var(--azul-medio);">Pronto para conhecer seu novo melhor amigo?</h3>
+            
+            <p class="fs-5 text-muted mb-4">
+                Nossas adoções são tratadas de forma pessoal e humanizada. Agora você pode conhecer todos os nossos resgatados disponíveis diretamente aqui no site, na nossa <strong>Enciclopet</strong>, ou através das postagens nas nossas redes sociais.
+            </p>
+            
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-4">
+                <a href="{% url 'enciclopet' %}" class="btn btn-outline-secondary px-4 py-3 fw-bold fs-5 shadow-sm">
+                    <i class="bi bi-search me-2"></i> ENCICLOPET
+                </a>
+                
+                <a href="{% url 'contato' %}" class="btn px-4 py-3 fw-bold fs-5 shadow-sm text-white" style="background-color: var(--verde-oliva);">
+                    <i class="bi bi-chat-heart-fill me-2"></i> ENTRAR EM CONTATO
+                </a>
+            </div>
+
+            <div class="d-flex flex-row justify-content-center gap-3">
+                <a href="https://www.instagram.com/associacaoviralate/" target="_blank" 
+                   class="btn px-4 py-2 fw-bold shadow-sm text-white" 
+                   style="background-color: #E1306C; font-size: 0.9rem;">
+                    <i class="bi bi-instagram me-1"></i> Instagram
+                </a> 
+                
+                <a href="https://www.facebook.com/associacaoviralate" target="_blank" 
+                   class="btn px-4 py-2 fw-bold shadow-sm text-white" 
+                   style="background-color: #1877F2; font-size: 0.9rem;">
+                    <i class="bi bi-facebook me-1"></i> Facebook
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Estilos do Banner Principal (Hero) */
+    .hero-section {
+        position: relative;
+        height: 85vh;
+        min-height: 500px;
+        background-image: url("{% static 'img/home.jpeg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+    .hero-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.65);
+        z-index: 1;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Faixa de Impacto */
+    .faixa-impacto {
+        background-color: var(--verde-oliva);
+        color: white;
+        margin-top: -30px;
+        position: relative;
+        z-index: 3;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Padronização das imagens */
+    .img-revezamento {
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        object-fit: cover;
+        height: 450px;
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
+
+    .btn-viralate-outline {
+        border: 2px solid var(--verde-oliva);
+        color: var(--verde-oliva);
+        font-weight: bold;
+        transition: 0.3s;
+        display: inline-block;
+    }
+    .btn-viralate-outline:hover {
+        background-color: var(--verde-oliva);
+        color: white;
+    }
+
+    /* AJUSTES PARA CELULAR (RESPONSIVIDADE) */
+    @media (max-width: 768px) {
+        .hero-section { height: 60vh; min-height: 350px; }
+        .hero-section h1 { font-size: 1.8rem !important; }
+        .hero-section p { font-size: 1.1rem !important; }
+        
+        .img-revezamento { height: 280px; }
+        
+        .faixa-impacto { margin-top: -15px; }
+        .faixa-impacto h2 { font-size: 1.5rem; }
+        .faixa-impacto p { font-size: 0.9rem !important; }
+        
+        .border-end { border: none !important; border-bottom: 1px solid rgba(255,255,255,0.2) !important; padding-bottom: 15px; margin-bottom: 15px; }
+        
+        /* Força os botões a ocuparem a largura toda no celular */
+        .btn-viralate-outline { width: 100%; }
+    }
+</style>
+
+<section class="hero-section d-flex align-items-center text-center">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content text-white pt-5">
+        <h1 class="display-3 fw-bold mb-4 text-uppercase">Mais do que sobrevivência,<br>eles buscam uma família.</h1>
+        <p class="lead mb-0 mx-auto fs-4" style="max-width: 850px; opacity: 0.9;">
+            Tirar das ruas é essencial, mas muitos passam meses esperando por uma adoção. Abra as portas da sua casa e mude um destino.
+        </p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row faixa-impacto p-4 mx-2 mx-md-0 text-center">
+        <div class="col-md-4 border-end border-light border-opacity-25">
+            <h2 class="fw-bold mb-0">50+</h2>
+            <p class="mb-0 fs-5">Vidas sob nossa guarda</p>
+        </div>
+        <div class="col-md-4 border-end border-light border-opacity-25">
+            <h2 class="fw-bold mb-0">ZERO</h2>
+            <p class="mb-0 fs-5">Abrigo físico próprio</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="fw-bold mb-0">8 mil</h2>
+            <p class="mb-0 fs-5">Custo mensal aproximado</p>
+        </div>
+    </div>
+</div>
+
+<section class="container py-5 my-4">
+    
+    <div class="row align-items-center mb-5 pb-4">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{% static 'img/front1.jpeg' %}" alt="Adotar" class="img-fluid img-revezamento">
+        </div>
+        <div class="col-md-6 ps-md-5 text-center text-md-start">
+            <h2 class="fw-bold mb-4 display-6" style="color: var(--verde-oliva);">Adotar salva duas vidas</h2>
+            <p class="fs-5 text-muted mb-4">Quando você leva um dos nossos animais para casa, encerra os custos de hospedagem e libera espaço para o próximo resgate.</p>
+            <a href="{% url 'enciclopet' %}" class="btn btn-viralate-outline px-4 py-2">CONHECER ANIMAIS</a>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5 pb-4 flex-column-reverse flex-md-row">
+        <div class="col-md-6 pe-md-5 text-center text-md-start">
+            <h2 class="fw-bold mb-4 display-6" style="color: var(--verde-oliva);">A linha de frente<br>precisa de você</h2>
+            <p class="fs-5 text-muted mb-4">Nós entramos com o trabalho braçal, mas a conta financeira precisa ser dividida. Doar é a forma mais rápida de salvar uma vida hoje.</p>
+            <a href="{% url 'doar' %}" class="btn btn-viralate-outline px-4 py-2">FORMAS DE DOAR</a>
+        </div>
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{% static 'img/front2.jpeg' %}" alt="Doar" class="img-fluid img-revezamento">
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5 pb-4">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{% static 'img/front3.jpeg' %}" alt="Lares Temporários" class="img-fluid img-revezamento">
+        </div>
+        <div class="col-md-6 ps-md-5 text-center text-md-start">
+            <h2 class="fw-bold mb-4 display-6" style="color: var(--verde-oliva);">Seja o porto seguro</h2>
+            <p class="fs-5 text-muted mb-4">Sem abrigo físico, o Lar Temporário é nosso recurso mais valioso. Ofereça um ambiente calmo para quem precisa se recuperar.</p>
+            <a href="{% url 'lares_temporarios' %}" class="btn btn-viralate-outline px-4 py-2">QUERO SER LAR TEMPORÁRIO</a>
+        </div>
+    </div>
+
+    <div class="row align-items-center flex-column-reverse flex-md-row">
+        <div class="col-md-6 pe-md-5 text-center text-md-start">
+            <h2 class="fw-bold mb-4 display-6" style="color: var(--verde-oliva);">Uma equipe pequena</h2>
+            <p class="fs-5 text-muted mb-4">Nossa linha de frente é formada por pouquíssimas pessoas. A demanda é maior do que podemos absorver sozinhas. Divida esse peso conosco.</p>
+            <a href="{% url 'voluntariar' %}" class="btn btn-viralate-outline px-4 py-2">SER VOLUNTÁRIO</a>
+        </div>
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{% static 'img/front4.jpeg' %}" alt="Voluntariar" class="img-fluid img-revezamento">
+        </div>
+    </div>
+
+</section>
+{% endblock %}

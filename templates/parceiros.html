@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .parceiro-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        border: 1px solid #eee;
+    }
+    .parceiro-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+    .img-parceiro {
+        height: 200px;
+        width: 100%;
+        object-fit: contain; /* Bom para logotipos */
+        background-color: #f9f9f9;
+        padding: 20px;
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-oliva);">Nossos Parceiros</h1>
+        <p class="lead text-muted">Empresas e profissionais que apoiam a causa animal em nossa região.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for parceiro in parceiros %}
+        <div class="col">
+            <div class="parceiro-card h-100 text-center p-3">
+                {% if parceiro.imagem %}
+                    <img src="{{ parceiro.imagem.url }}" class="img-parceiro" alt="{{ parceiro.nome }}">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="fw-bold text-dark mb-1">{{ parceiro.nome }}</h4>
+                    <p class="badge bg-light text-dark border mb-3">{{ parceiro.area_atuacao }}</p>
+                    <p class="text-muted mb-3"><i class="bi bi-chat-dots me-2"></i>{{ parceiro.contato }}</p>
+                    
+                    {% if parceiro.link_site %}
+                    <a href="{{ parceiro.link_site }}" target="_blank" class="btn btn-outline-success btn-sm px-4">
+                        Ver Perfil
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Ainda não temos parceiros cadastrados. Quer ajudar? Entre em contato!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

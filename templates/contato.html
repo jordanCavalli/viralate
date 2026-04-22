@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .contato-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+    .contato-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .icon-box-contato {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 20px auto;
+    }
+    .aviso-box {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-left: 5px solid #E07A5F;
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-oliva);">Fale com a Gente</h1>
+        <p class="lead text-muted mt-3 mx-auto" style="max-width: 600px;">
+            Seja para adoção, voluntariado, tirar dúvidas ou propor parcerias, escolha o melhor canal para conversar com a nossa equipe.
+        </p>
+    </div>
+
+    <div class="row g-4 justify-content-center mb-5">
+        
+        <div class="col-md-4">
+            <div class="contato-card p-4 p-md-5 text-center" style="border-top: 5px solid var(--verde-oliva);">
+                <div class="icon-box-contato" style="background-color: rgba(162, 181, 72, 0.1); color: var(--verde-oliva);">
+                    <i class="bi bi-envelope-at-fill"></i>
+                </div>
+                <h4 class="fw-bold mb-3" style="color: var(--verde-oliva);">E-mail</h4>
+                <p class="text-muted mb-4">Para assuntos gerais, parcerias, dúvidas ou para ser voluntário.</p>
+                <a href="mailto:amoviralate@gmail.com" class="fw-bold fs-5 text-decoration-none" style="color: var(--verde-oliva);">
+                    amoviralate@gmail.com
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="contato-card p-4 p-md-5 text-center" style="border-top: 5px solid #E1306C;">
+                <div class="icon-box-contato" style="background-color: rgba(225, 48, 108, 0.1); color: #E1306C;">
+                    <i class="bi bi-instagram"></i>
+                </div>
+                <h4 class="fw-bold mb-3" style="color: #E1306C;">Instagram</h4>
+                <p class="text-muted mb-4">Acompanhe nossos resgates, o dia a dia e nos mande um Direct.</p>
+                <a href="https://www.instagram.com/associacaoviralate/" target="_blank" class="btn text-white fw-bold w-100 py-2 shadow-sm" style="background-color: #E1306C; border-radius: 8px;">
+                    Acessar Instagram
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="contato-card p-4 p-md-5 text-center" style="border-top: 5px solid #1877F2;">
+                <div class="icon-box-contato" style="background-color: rgba(24, 119, 242, 0.1); color: #1877F2;">
+                    <i class="bi bi-facebook"></i>
+                </div>
+                <h4 class="fw-bold mb-3" style="color: #1877F2;">Facebook</h4>
+                <p class="text-muted mb-4">Veja nossos álbuns de adoção e nos envie uma mensagem por lá.</p>
+                <a href="https://www.facebook.com/associacaoviralate" target="_blank" class="btn text-white fw-bold w-100 py-2 shadow-sm" style="background-color: #1877F2; border-radius: 8px;">
+                    Acessar Facebook
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="aviso-box p-4 p-md-5">
+                <h3 class="fw-bold mb-4 text-center" style="color: #E07A5F;">Achados, Perdidos e Denúncias</h3>
+                
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-search me-2" style="color: var(--azul-medio);"></i>Animais Achados ou Perdidos</h5>
+                        <p class="text-muted mb-0">
+                            Encontrou um animal sem identificação ou o seu pet fugiu? Envie uma mensagem no nosso <strong>Instagram</strong> ou <strong>Facebook</strong> contendo: 
+                            uma foto nítida do animal, o bairro/cidade onde ocorreu e um telefone de contato. Nós ajudaremos com a divulgação nas nossas redes para que ele volte para casa o mais rápido possível.
+                        </p>
+                    </div>
+
+                    <div class="col-md-6 border-start-md">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill me-2" style="color: #E1306C;"></i>Denúncias de Maus-Tratos</h5>
+                        <p class="text-muted mb-0">
+                            Maus-tratos a animais é crime. <strong>A Viralate é uma ONG e não possui poder de polícia.</strong> Em casos de agressão flagrante, abandono ou animais em risco de vida iminente, 
+                            acione imediatamente a Brigada Militar (190) ou a Polícia Civil. Você pode entrar em contato conosco para receber orientações de como proceder com a denúncia formal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* Ajuste para colocar a borda apenas em telas maiores */
+    @media (min-width: 768px) {
+        .border-start-md {
+            border-left: 1px solid #dee2e6;
+            padding-left: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

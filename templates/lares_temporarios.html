@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .lt-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        height: 100%;
+        border-top: 5px solid var(--verde-oliva);
+    }
+    .icon-box-lt {
+        font-size: 2.5rem;
+        color: var(--verde-oliva);
+        margin-bottom: 15px;
+    }
+    .destaque-box {
+        background-color: var(--azul-medio);
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+</style>
+
+<div class="container py-5 mt-5">
+    
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color: var(--verde-oliva);">Lares Temporários</h1>
+        <p class="lead text-muted mt-3 mx-auto" style="max-width: 800px;">
+            A ponte entre o resgate e o final feliz. Descubra como abrir as portas da sua casa pode salvar uma vida.
+        </p>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10">
+            <div class="destaque-box p-4 p-md-5 text-center">
+                <h2 class="fw-bold mb-4">Nós precisamos de você.</h2>
+                <p class="fs-5 mb-4" style="opacity: 0.9;">
+                    Como a Viralate não possui um abrigo físico, a nossa capacidade de retirar um animal das ruas ou de uma situação de maus-tratos <strong>depende única e exclusivamente</strong> da disponibilidade de Lares Temporários.
+                </p>
+                <p class="fs-5 mb-0" style="opacity: 0.9;">
+                    Todo dia recebemos pedidos de socorro. Sem lares, nossas mãos ficam atadas. Ser um Lar Temporário é um ato de amor de extrema importância: você oferece o recomeço seguro que eles tanto precisam.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-10 text-center mb-4">
+            <h3 class="fw-bold" style="color: var(--verde-oliva);">Como funciona ser um Lar Temporário?</h3>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center mb-5">
+        
+        <div class="col-md-4">
+            <div class="lt-card p-4 text-center">
+                <i class="bi bi-house-heart-fill icon-box-lt"></i>
+                <h4 class="fw-bold text-dark mb-3">O que você oferece</h4>
+                <p class="text-muted mb-0">
+                    Um cantinho seguro, água fresca, comida e paciência. Muitos chegam assustados e precisam de um ambiente calmo para voltar a confiar nos humanos.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="lt-card p-4 text-center" style="border-top-color: #E07A5F;">
+                <i class="bi bi-shield-plus icon-box-lt" style="color: #E07A5F;"></i>
+                <h4 class="fw-bold text-dark mb-3">O nosso suporte</h4>
+                <p class="text-muted mb-0">
+                    Você nunca estará sozinho. A ONG auxilia com o que for necessário:  divulgação intensa nas redes e orientações sobre comportamento e comida se necessário.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="lt-card p-4 text-center" style="border-top-color: var(--azul-medio);">
+                <i class="bi bi-calendar-heart-fill icon-box-lt" style="color: var(--azul-medio);"></i>
+                <h4 class="fw-bold text-dark mb-3">O tempo de estadia</h4>
+                <p class="text-muted mb-0">
+                    Pode variar de alguns dias até alguns meses. O compromisso é manter o animal seguro até que a família definitiva ideal seja encontrada.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="p-4 rounded-4" style="background-color: rgba(162, 181, 72, 0.1); border: 1px solid #e2ddc7;">
+                <h4 class="fw-bold text-dark mb-3">Tem um espaço sobrando na sua casa e no seu coração?</h4>
+                <p class="fs-5 text-dark mb-4">
+                    Entre em contato com a gente. Vamos conversar para entender seu espaço, sua rotina e encontrar o animalzinho que melhor se adapta à sua realidade temporária.
+                </p>
+                
+                <a href="{% url 'contato' %}" class="btn px-5 py-3 fw-bold fs-5 text-uppercase shadow-sm" style="background-color: var(--verde-oliva); color: white; border-radius: 8px;">
+                    <i class="bi bi-door-open-fill me-2"></i> Quero ser Lar Temporário
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

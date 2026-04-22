@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .foto-container {
+        position: relative;
+    }
+    .foto-principal {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: opacity 0.3s ease;
+    }
+    .galeria-miniaturas {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .miniatura {
+        width: 100%;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: 0.2s;
+    }
+    .miniatura:hover {
+        opacity: 0.8;
+    }
+    .miniatura.ativa {
+        border-color: var(--verde-oliva);
+    }
+    .info-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        border: 1px solid #eee;
+    }
+    .badge-status-ADOTAR { background-color: var(--verde-oliva); color: white; }
+    .badge-status-PERDIDO { background-color: #dc3545; color: white; }
+    .badge-status-ENCONTRADO { background-color: var(--azul-medio); color: white; }
+</style>
+
+<div class="container py-5 mt-5">
+    <div class="mb-4">
+        <a href="{% url 'enciclopet' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Voltar para Enciclopet
+        </a>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-6">
+            <div class="foto-container">
+                {% if animal.foto %}
+                    <img src="{{ animal.foto.url }}" id="imgPrincipal" alt="{{ animal.nome }}" class="foto-principal">
+                {% else %}
+                    <div class="foto-principal d-flex align-items-center justify-content-center bg-light">
+                        <i class="bi bi-camera text-muted" style="font-size: 4rem;"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="galeria-miniaturas">
+                {% if animal.foto %}
+                <img src="{{ animal.foto.url }}" class="miniatura ativa" onclick="trocarImagem(this)">
+                {% endif %}
+
+                {% for extra in fotos_extras %}
+                <img src="{{ extra.foto.url }}" class="miniatura" onclick="trocarImagem(this)" alt="Foto adicional">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <h1 class="display-5 fw-bold mb-0" style="color: var(--verde-oliva);">{{ animal.nome }}</h1>
+                <span class="badge badge-status-{{ animal.status }} fs-6 px-3 py-2">{{ animal.get_status_display }}</span>
+            </div>
+            
+            <hr class="my-4">
+
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-sm-3">
+                    <div class="info-card">
+                        <i class="bi bi-tag fs-4" style="color: var(--azul-medio);"></i>
+                        <p class="mb-0 fw-bold mt-2">{{ animal.get_especie_display }}</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="info-card">
+                        <i class="bi bi-gender-ambiguous fs-4" style="color: var(--azul-medio);"></i>
+                        <p class="mb-0 fw-bold mt-2">{{ animal.get_sexo_display }}</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="info-card">
+                        <i class="bi bi-clock fs-4" style="color: var(--azul-medio);"></i>
+                        <p class="mb-0 fw-bold mt-2">{{ animal.idade }}</p>
+                    </div>
+                </div>
+                {% if animal.tamanho %}
+                <div class="col-6 col-sm-3">
+                    <div class="info-card">
+                        <i class="bi bi-arrows-expand fs-4" style="color: var(--azul-medio);"></i>
+                        <p class="mb-0 fw-bold mt-2">{{ animal.get_tamanho_display }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <h4 class="fw-bold mb-3">Minha História</h4>
+            <div class="fs-5 text-muted lh-lg mb-5">
+                {{ animal.historia|linebreaksbr|default:"A história deste anjinho ainda está sendo escrita..." }}
+            </div>
+
+            <div class="p-4 rounded-4" style="background-color: #f0fdf4; border: 1px solid #dcfce7;">
+                <h5 class="fw-bold" style="color: var(--verde-oliva);">Gostou de mim?</h5>
+                <p class="text-muted mb-3">Entre em contato para saber mais sobre o processo de adoção.</p>
+                <a href="{% url 'contato' %}" class="btn btn-lg w-100 fw-bold text-white shadow-sm" style="background-color: var(--verde-oliva);">
+                    <i class="bi bi-whatsapp me-2"></i> ENTRAR EM CONTATO
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function trocarImagem(elemento) {
+        // 1. Pega o endereço da imagem que foi clicada
+        const novaUrl = elemento.src;
+        
+        // 2. Altera a imagem principal
+        const principal = document.getElementById('imgPrincipal');
+        principal.style.opacity = '0'; // Efeito de fade out
+        
+        setTimeout(() => {
+            principal.src = novaUrl;
+            principal.style.opacity = '1'; // Efeito de fade in
+        }, 200);
+
+        // 3. Remove a borda de "ativa" de todas as miniaturas
+        document.querySelectorAll('.miniatura').forEach(img => {
+            img.classList.remove('ativa');
+        });
+
+        // 4. Adiciona a borda na miniatura que foi clicada
+        elemento.classList.add('ativa');
+    }
+</script>
+
+{% endblock %}
