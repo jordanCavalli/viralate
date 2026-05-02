@@ -1,14 +1,12 @@
 from django.contrib import admin
-from .models import Parceiro
 from django.utils.html import format_html
 from django.urls import reverse
-from .models import Animal, AnimalFoto
+from .models import Parceiro, Animal, AnimalFoto
 
 @admin.register(Parceiro)
 class ParceiroAdmin(admin.ModelAdmin):
     list_display = ('nome', 'area_atuacao', 'contato')
     search_fields = ('nome', 'area_atuacao')
-
 
 class AnimalFotoInline(admin.TabularInline):
     model = AnimalFoto
@@ -16,12 +14,10 @@ class AnimalFotoInline(admin.TabularInline):
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    # O que aparece na tabela principal
     list_display = ('foto_miniatura', 'nome', 'especie', 'status', 'botao_apagar')
     list_filter = ('status', 'especie', 'sexo')
     search_fields = ('nome',)
 
-    # O que aparece na tela de cadastro (em ordem vertical)
     fields = ('foto', 'nome', 'especie', 'sexo', 'idade', 'tamanho', 'status', 'historia')
     
     inlines = [AnimalFotoInline]

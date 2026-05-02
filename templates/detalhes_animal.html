@@ -119,14 +119,43 @@
                 {{ animal.historia|linebreaksbr|default:"A história deste anjinho ainda está sendo escrita..." }}
             </div>
 
+            {% if animal.status == 'ADOTAR' %}
             <div class="p-4 rounded-4" style="background-color: #f0fdf4; border: 1px solid #dcfce7;">
                 <h5 class="fw-bold" style="color: var(--verde-oliva);">Gostou de mim?</h5>
-                <p class="text-muted mb-3">Entre em contato para saber mais sobre o processo de adoção.</p>
+                <p class="text-muted mb-3">Entre em contato para saber mais sobre o processo de adoção e documentação.</p>
                 <a href="{% url 'contato' %}" class="btn btn-lg w-100 fw-bold text-white shadow-sm" style="background-color: var(--verde-oliva);">
+                    <i class="bi bi-whatsapp me-2"></i> QUERO ADOTAR
+                </a>
+            </div>
+
+            {% elif animal.status == 'PERDIDO' %}
+            <div class="p-4 rounded-4" style="background-color: #fff5f5; border: 1px solid #fed7d7;">
+                <h5 class="fw-bold text-danger">Você me viu?</h5>
+                <p class="text-muted mb-3">Se você tiver qualquer informação sobre o meu paradeiro, por favor, avise a minha família!</p>
+                <a href="{% url 'contato' %}" class="btn btn-danger btn-lg w-100 fw-bold shadow-sm">
+                    <i class="bi bi-whatsapp me-2"></i> TENHO INFORMAÇÕES
+                </a>
+            </div>
+
+            {% elif animal.status == 'ENCONTRADO' %}
+            <div class="p-4 rounded-4" style="background-color: #f0f8ff; border: 1px solid #cce5ff;">
+                <h5 class="fw-bold" style="color: var(--azul-medio);">Você é meu tutor?</h5>
+                <p class="text-muted mb-3">Fui resgatado e estou seguro. Se você é minha família ou a conhece, entre em contato conosco.</p>
+                <a href="{% url 'contato' %}" class="btn btn-lg w-100 fw-bold text-white shadow-sm" style="background-color: var(--azul-medio);">
+                    <i class="bi bi-whatsapp me-2"></i> SOU O TUTOR
+                </a>
+            </div>
+            
+            {% else %}
+            <!-- Fallback de segurança: caso um status novo seja criado no futuro -->
+            <div class="p-4 rounded-4" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                <h5 class="fw-bold text-secondary">Quer saber mais?</h5>
+                <p class="text-muted mb-3">Entre em contato com a equipe para mais informações sobre este animal.</p>
+                <a href="{% url 'contato' %}" class="btn btn-secondary btn-lg w-100 fw-bold shadow-sm">
                     <i class="bi bi-whatsapp me-2"></i> ENTRAR EM CONTATO
                 </a>
             </div>
-        </div>
+            {% endif %}        </div>
     </div>
 </div>
 
