@@ -24,10 +24,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tw$_5m^yq3a_cz$lhf)yxgiq&v-8q#(un6v+)2$sn-lnw7n4tc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = [
+    'viralate.com.br',         
+    'www.viralate.com.br',  
+    '.up.railway.app',       
+    'localhost',              
+    '127.0.0.1'              
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://viralate.com.br',
+    'https://www.viralate.com.br',
+    'https://*.up.railway.app',
+]
 
 # Application definition
 
