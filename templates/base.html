@@ -90,7 +90,12 @@
             max-width: 100%;
             height: auto;
         }
+
+        .border-success {
+            border-color: var(--verde-oliva) !important;
+        }
         
+        /* AJUSTES PARA CELULAR (RESPONSIVIDADE) */
         @media (max-width: 768px) {
             body {
                 padding-top: 75px; /* Um pouco menos de espaço no celular */
@@ -98,16 +103,10 @@
             .navbar-viralate .navbar-brand img {
                 height: 50px; /* Logo um pouco menor no celular para sobrar tela */
             }
-        .border-success {
-            border-color: var(--verde-oliva) !important;
-        }
-        
-        @media (max-width: 768px) {
             .btn-viralate-outline {
                 width: 100%; /* No celular, o botão de adoção fica gigante e fácil de clicar */
             }
         }
-}
     </style>
 </head>
 <body>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Parceiro
 from .models import Animal
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -80,3 +81,39 @@ def detalhes_animal(request, id):
         'fotos_extras': fotos_extras,
     }
     return render(request, 'detalhes_animal.html', context)
+
+def lista_enciclopet(request):
+    animais = Animal.objects.all().order_by('-data_cadastro')
+    
+    busca = request.GET.get('busca')
+    especie = request.GET.get('especie')
+    sexo = request.GET.get('sexo')
+    status = request.GET.get('status')
+    tamanho = request.GET.get('tamanho')
+
+    if busca:
+        animais = animais.filter(nome__icontains=busca)
+    if especie:
+        animais = animais.filter(especie=especie)
+    if sexo:
+        animais = animais.filter(sexo=sexo)
+    if status:
+        animais = animais.filter(status=status)
+    if tamanho:
+        animais = animais.filter(tamanho=tamanho)
+
+    # --- INÍCIO DA LÓGICA DE PAGINAÇÃO ---
+    paginator = Paginator(animais, 12) # Limita a 12 animais por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # --- FIM DA LÓGICA DE PAGINAÇÃO ---
+
+    context = {
+        'animais': page_obj, # Enviamos o objeto da página em vez do queryset inteiro
+        'especies': Animal.ESPECIE_CHOICES,
+        'sexos': Animal.SEXO_CHOICES,
+        'status_choices': Animal.STATUS_CHOICES,
+        'tamanhos': Animal.TAMANHO_CHOICES,
+    }
+    
+    return render(request, 'enciclopet.html', context)

@@ -181,6 +181,51 @@
                 <a href="{% url 'enciclopet' %}" class="btn btn-outline-secondary mt-2">Limpar Filtros</a>
             </div>
         {% endfor %}
+    </div> {% if animais.has_other_pages %}
+    <nav aria-label="Navegação de páginas da Enciclopet">
+        <ul class="pagination justify-content-center mb-5">
+            
+            {% if animais.has_previous %}
+                <li class="page-item">
+                    <a class="page-link text-success" href="?page={{ animais.previous_page_number }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}{% if request.GET.especie %}&especie={{ request.GET.especie }}{% endif %}{% if request.GET.sexo %}&sexo={{ request.GET.sexo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tamanho %}&tamanho={{ request.GET.tamanho }}{% endif %}">
+                        &laquo; Anterior
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo; Anterior</span>
+                </li>
+            {% endif %}
+
+            {% for num in animais.paginator.page_range %}
+                {% if animais.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link" style="background-color: var(--verde-oliva); border-color: var(--verde-oliva);">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="?page={{ num }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}{% if request.GET.especie %}&especie={{ request.GET.especie }}{% endif %}{% if request.GET.sexo %}&sexo={{ request.GET.sexo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tamanho %}&tamanho={{ request.GET.tamanho }}{% endif %}">
+                            {{ num }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if animais.has_next %}
+                <li class="page-item">
+                    <a class="page-link text-success" href="?page={{ animais.next_page_number }}{% if request.GET.busca %}&busca={{ request.GET.busca }}{% endif %}{% if request.GET.especie %}&especie={{ request.GET.especie }}{% endif %}{% if request.GET.sexo %}&sexo={{ request.GET.sexo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.tamanho %}&tamanho={{ request.GET.tamanho }}{% endif %}">
+                        Próxima &raquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Próxima &raquo;</span>
+                </li>
+            {% endif %}
+            
+        </ul>
+    </nav>
+    {% endif %}
 
 <div class="container mb-5 mt-5">
     <div class="row">
